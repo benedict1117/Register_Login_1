@@ -1,0 +1,29 @@
+{# Usage: {% include "accounts/_field.html" with field=form.name type="text" autocomplete="name" %} #}
+<div class="field{% if field.errors %} has-error{% endif %}">
+  <input
+    class="field__input{% if toggle %} field__input--toggle{% endif %}"
+    type="{{ type|default:'text' }}"
+    id="{{ field.id_for_label }}"
+    name="{{ field.html_name }}"
+    {% if type != 'password' %}value="{{ field.value|default_if_none:'' }}"{% endif %}
+    placeholder=" "
+    autocomplete="{{ autocomplete|default:'off' }}"
+    {% if autofocus %}autofocus{% endif %}
+    required
+  >
+  <label class="field__label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+  {% if toggle %}
+  <button type="button" class="field__toggle" data-toggle-password aria-label="Show password" aria-pressed="false">
+    <svg class="icon-eye-off" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/>
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M4 20 20 4"/>
+    </svg>
+    <svg class="icon-eye" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/>
+      <circle cx="12" cy="12" r="3"/>
+    </svg>
+  </button>
+  {% endif %}
+  {% for error in field.errors %}<p class="field__error">{{ error }}</p>{% endfor %}
+</div>

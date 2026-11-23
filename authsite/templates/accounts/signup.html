@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Create Account{% endblock %}
+
+{% block body %}
+<main class="auth-card">
+  <section class="auth-card__form">
+    <h1 class="auth-title auth-title--signup">Create Account</h1>
+
+    <form method="post" novalidate class="auth-form auth-form--signup">
+      {% csrf_token %}
+
+      {% include "accounts/_field.html" with field=form.name type="text" autocomplete="name" autofocus=True %}
+      {% include "accounts/_field.html" with field=form.identifier type="text" autocomplete="username" %}
+      {% include "accounts/_field.html" with field=form.password1 type="password" autocomplete="new-password" %}
+      {% include "accounts/_field.html" with field=form.password2 type="password" autocomplete="new-password" %}
+
+      <button type="submit" class="btn-pill">SIGN UP</button>
+    </form>
+
+    <p class="auth-switch">Already have an account? <a href="{% url 'accounts:login' %}">Log in</a></p>
+  </section>
+
+  <aside class="auth-card__media" style="background-image: url('{% static 'img/auth-bg.jpg' %}')">
+    <a href="{% url 'accounts:login' %}" class="back-btn" data-back aria-label="Go back">
+      <svg viewBox="0 0 28 20" width="28" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M10 3 5 7.5 10 12"/>
+        <path d="M5 7.5h12a5 5 0 0 1 0 10h-3"/>
+        <path d="M2 19h14"/>
+      </svg>
+    </a>
+  </aside>
+</main>
+{% endblock %}
